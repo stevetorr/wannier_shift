@@ -1,7 +1,7 @@
 # Wannier Shift
 ## A project by Shiang Fang, Eri Muramoto, Steven Torrisi, and Tianning Zhou
 
-### Introduction
+## Introduction, Background, and Motivation
 
 Density functional theory (DFT) is the workhorse of computational condensed matter and physical chemistry. It allows users to compute a wide variety of material properties, such as electronic and mechanical structure, phonon/vibrational behavior, and geometric phase phenomena. However, DFT does not scale favorably with system size, and performing complicated electron orbital-structure or mechanical relaxation calculations for systems with more than a few dozen atoms becomes intractable. 
 
@@ -21,7 +21,7 @@ In order to study twisted bilayer TMDC systems, we need to understand the intera
 
 
 
-### Our plan
+### Our Plan
 
 Our chief concerns are as follows. It is very time-costly to generate data sets for different bilayer material configurations. The DFT + Wannierization software is already optimized for parallel execution over cores, and is best regarded as a black box; therefore, embarrassingly parallel execution of the code via a wrapper code for a wide variety of configurations is how we aim to optimize this step. For the management and utilization of the resulting dataset, we turn to Spark and examine other database models to rapidly query the database for different orbital-orbital coupling strengths. The advantage of this parallelization is that it allows for faster querying of the computed values for accurate tight-binding Hamiltonian parameterization.
 
@@ -33,11 +33,28 @@ The extremely fine mesh of configurations which we produce via large batches of 
 
 
 
-From there, the program outputs a list of the orbital-orbital couplings in the default wannier90 format. It creates one such file for each local configuration, which in our first batch included 400 different unit cells and VASP runs. We wrote and applied a wrapper which converts the data into a csv format for easy load-in to a spark data frame, as well as decorating it with information which assists our post-processing efforts. From there, we wrote a spark program which loads the 400 data files into one data frame for easy querying. As mentioned before, the tight-binding-hamiltonian is entirely represented by a giant matrix, and we populate it by querying the spark database.
+From there, the program outputs a list of the orbital-orbital couplings in the default wannier90 format. It creates one such file for each local configuration, which in our first batch included 400 different unit cells and VASP runs. We wrote and applied a wrapper which converts the data into a csv format for easy load-in to a spark data frame, as well as decorating it with information which assists our post-processing efforts. From there, we wrote a spark program which loads the 400 data files into one data frame for easy querying. As mentioned before, the tight-binding-Hamiltonian is entirely represented by a giant matrix, and we populate it by querying the spark database.
 
 
 
-The primary development platform for our calculation was a workstation physically located at Harvard, in the Kaxiras group’s office space of Cruft Hall. 
+The primary development platform for our calculation was a workstation physically located at Harvard, in the Kaxiras group’s office space of Cruft Hall. The workstation runs OSX High Sierra  **INCLUDE A LOT OF TECHNICAL DETAILS ABOUT THE WORKSTATION, HERE**. 
+
+## Profiling the Problem
+
+In order to better understand where advantages of parallelization could come in to this problem, we first draw attention to the salient features of the problem.
+
+The batched data generation involves calling several hundred to several thousand different calculations of the VASP imeplementation of Density Functional Theory. All of the calculations' input parameters are deterministically generated and may proceed in any order; further, VASP is commercial software which is optimized already for parallel implementation on the per-calculation basis, exploiting multiple cores to more rapidly solve for the electronic density function and associated energy. **Therefore, the process of generating our data sets is ripe for embarassingly parallel MPI implementation.** 
+
+Next, we turn to managing the data. When developing a tight-binding model for a system of atoms, we are attempting to map displacements between atoms (which arise from a twisting angle applied to a bilayer system) to the resultant coupling between their orbitals. In Transition Metal Dichalcogenide systems, we have 11 orbitals in the three-atom unit cell of a monolayer (2 sets of three p-orbitals for the Chalcogens, and five d-orbitals for the Transition Metal). In a twisted sample, we seek to find the orbital interaction between every pair of orbitals in the material. Therefore, we move from the displacements between individual atoms to the coupling strength of the atom's orbitals.
+
+We obtain local information about how the orbital coupling should behave from the Wannierization. We end up with a data set of hundreds of displaced unit cells with associated orbital-orbital energy couplings. Querying this database is not trivial, and represents a query of several million data points to find the relevant values. Even loading the relevant data into usable memory is not a trivial task for the computer. **Therefore, managing this enormous dataset, and querying it efficiently, is ammenable to attack via Spark or other distributed database management frameworks.**. 
+
+From there, we understand that the twisted angle displacemetns will virtually never line up with the local samplings we took-- we have to perform an interpolation. Performing this interpolation may be computationally intensive for large numbers of real-space data points. **Black-box functions exist for Scipy to perform this implementation in a way easily compatible with Spark-- but it could be possible to help perform these queries in parallel.**
+
+
+To load in the 400 files takes a substantial amount of time in serial. We decided to profile t
+
+The overall data content of all of the files, collectively, is **(GET THIS NUMBER)** which is too
 
 
 ## Bibliography
