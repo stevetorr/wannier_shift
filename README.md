@@ -60,7 +60,7 @@ To load in the 400 files takes a substantial amount of time in serial. It takes 
 
 The resultant table is shown below:
 
-| Time Spent           | 40 Files | 400 Files |
+|                      | 40 Files | 400 Files |
 |----------------------|----------|-----------|
 | Serial               | 28.80 s  | 295.51 s  |
 | Parallel (12 Cores)  | 3.12 s   | 27.81 s   |
