@@ -56,9 +56,23 @@ Next, we turn to managing the data. When developing a tight-binding model for a 
 We obtain local information about how the orbital coupling should behave from the Wannierization. We end up with a data set of hundreds of displaced unit cells with associated orbital-orbital energy couplings. Querying this database is not trivial, and represents a query of several million data points to find the relevant values. Even loading the relevant data into usable memory is not a trivial task for the computer. **Therefore, managing this enormous dataset, and querying it efficiently, is ammenable to attack via Spark or other distributed database management frameworks.**. 
 
 
-To load in the 400 files takes a substantial amount of time in serial. We decided to profile the perfomance of python loading in a smaller subset of the files (with the anticipation that it extrapolates linearly to 
+To load in the 400 files takes a substantial amount of time in serial. It takes Python, using standard tools (reading all files into local memory then using a list comprehension to parse them for relevant orbital information) on average .7 seconds to read one 12-MB file and return the list of displacements and couplings strengths desired.  We decided to profile the perfomance of Python loading in a smaller subset of the files to compare with the parallel process.
 
-The overall data content of all of the files, collectively, is **((GET THIS NUMBER))** which is quite large to 
+The resultant table is shown below:
+
+| Time Spent           | 40 Files | 400 Files |
+|----------------------|----------|-----------|
+| Serial               | 28.80 s  | 295.51 s  |
+| Parallel (12 Cores)  | 3.12 s   | 27.81 s   |
+| Serial/12 Core       | 9.23     | 10.62     |
+| Spark (12 Cores)     |          | ~ 8 s     |
+| Parquet Spark        |          | ~ 4 s     |
+| Speedup vs. Serial   |          | 73        |
+| Speedup vs. Parallel |          | 6.95      |
+#### Table 1. Comparison of Querying Times for Serial vs Parallel using Standard Python Tools.
+
+
+The overall data content of all of the files, collectively, is **((GET THIS NUMBER))** which is quite large to manage. When python
 
 ##### Insert profiling information/figures about data querying here.
 
