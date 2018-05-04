@@ -1,6 +1,9 @@
 # Wannier Shift
 ## A project by Shiang Fang, Eri Muramoto, Steven Torrisi, and Tianning Zhao
 
+
+[Background:](https://stevetorr.github.io/wannier_shift/background) 
+
 ## Introduction, Background, and Motivation
 
 Density functional theory (DFT) is the workhorse of computational condensed matter and physical chemistry. It allows users to compute a wide variety of material properties, such as electronic and mechanical structure, phonon/vibrational behavior, and geometric phase phenomena. However, DFT does not scale favorably with system size, and performing complicated electron orbital-structure or mechanical relaxation calculations for systems with more than a few dozen atoms becomes intractable. 
