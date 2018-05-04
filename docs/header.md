@@ -1,8 +1,8 @@
----
-title: Wannier Shift
----
 # Wannier Shift
 ## A project by Shiang Fang, Eri Muramoto, Steven Torrisi, and Tianning Zhao
+
+
+## [Background:](https://stevetorr.github.io/wannier_shift/background) 
 
 ## Introduction, Background, and Motivation
 
