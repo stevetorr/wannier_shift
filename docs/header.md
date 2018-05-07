@@ -10,15 +10,15 @@
 
 ### Short walk through of all codes to be added here
 
-### Serial query
-The following are the steps to reproduce our results on serial query. 
+### Serial Loading
+The following are the steps to reproduce our results on serial loading. 
 
   First, please launch an AWS instance:
 
    - Amazon Machine Image (AMI): Ubuntu Server 16.04 LTS (HVM), SSD Volume Type
   
-   - Instance type: 1 m4.4xlarge 
-  
+   - Instance type: 1 m4.4xlarge instance
+
 No additional storage is required, and the default settings can be used for other configurations.
   
  
@@ -38,7 +38,7 @@ Now upload the zip file “new_proc_wan_serial” to the VM, and unzip:
 
     $ unzip new_proc_wan_serial.zip
 
-After following these steps, the serial_query_profile.py code should be ready to be run in the new_proc_wan_200 directory:
+After following these steps, the serial_query_profile.py code should be ready to be run in the new_proc_wan_serial directory:
   
     $ cd new_proc_wan_serial
     $ python serial_query_profile.py
