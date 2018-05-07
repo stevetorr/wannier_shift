@@ -122,7 +122,7 @@ Generate_model.py directly queries this parquet to obtain electronic coupling st
     user	2m56.752s
     sys	0m4.528s
 
-If you are reproducing the results with 200 files, it could be faster to upload the zip file new_proc_wan_200_files, unzip, upload to the HDFS, and move all the files outside of the folder. Please remove the original empty folder after doing so.
+If you are reproducing the results with 200 files, it could be faster to upload the zip file new_proc_wan_200_files.zip, unzip, upload to the HDFS, and move all the files outside of the folder. Please remove the original empty folder after doing so.
 
     $ hadoop fs -put new_proc_wan_200_files
     $ hadoop fs -mv new_proc_wan_200_files/new* .
