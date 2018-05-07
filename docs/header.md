@@ -108,7 +108,7 @@ Submitting Spark_query.py will give you the execution times of different query m
 
 This creates a parquet directory myparquet_short.parquet inside HDFS, so if you are running this code multiple times, please remove myparquet_short.parquet before rerunning each time. `$ hadoop fs -rm -R -f myparquet_short.parquet`
 
-Generate_model.py uses directrly queries this parquet to obtain electronic coupling strengths, then computes and saves the TBH. Once you have created myparquet_short.parquet, please run:
+Generate_model.py directly queries this parquet to obtain electronic coupling strengths, then computes and saves the TBH. Once you have created myparquet_short.parquet, please run:
 
     $ time spark-submit --num-executors 2 --executor-cores 1 generate_model.py
     …
