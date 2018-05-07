@@ -19,26 +19,24 @@ The following are the steps to reproduce our results on serial query.
   
    - Instance type: 1 m4.4xlarge 
   
-  No additional storage is required, and the default settings can be used for other configurations.
-
-  Install necessary packages:
- 
-    $ sudo apt-get update
+No additional storage is required, and the default settings can be used for other configurations.
   
-After confirming that Python is already installed,  
+ 
+Confirm that Python is already installed:  
 
     $ python3 --version 
     $ Python 3.5.2
+    
+Then install the necessary packages:
 
-install the following:
-
+    $ sudo apt-get update
     $ sudo apt-get install python-pip
     $ sudo pip install numpy  
     $ sudo apt-get install unzip
 
-Now upload a zip file that contains 200 files “new_proc_wan_200” to the VM, and unzip:
+Now upload a zip file “new_proc_wan_200” to the VM, and unzip:
 
-    $ unzip new_proc_wan_all.zip
+    $ unzip new_proc_wan_200.zip
 
 After following these steps, the serial_query_profile.py code should be ready to be run in the new_proc_wan_200 directory:
   
