@@ -38,10 +38,10 @@ Now upload the zip file “new_proc_wan_serial” to the VM, and unzip:
 
     $ unzip new_proc_wan_serial.zip
 
-After following these steps, the serial_query_profile.py code should be ready to be run in the new_proc_wan_serial directory:
+After following these steps, the Serial_query_profile.py code should be ready to be run in the new_proc_wan_serial directory:
   
     $ cd new_proc_wan_serial
-    $ python serial_query_profile.py
+    $ python Serial_query_profile.py
 
 Successful run will provide you with an output that looks like this:
 
