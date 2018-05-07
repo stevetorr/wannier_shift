@@ -36,7 +36,7 @@ Then install the necessary packages:
 
 Now upload a zip file “new_proc_wan_200” to the VM, and unzip:
 
-    $ unzip new_proc_wan_200.zip
+    $ unzip new_proc_wan_200.zip
 
 After following these steps, the serial_query_profile.py code should be ready to be run in the new_proc_wan_200 directory:
   
