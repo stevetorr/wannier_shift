@@ -58,6 +58,77 @@ Successful run will provide you with an output that looks like this:
     Validation complete!
 
 
+### Loading using Spark cluster
+
+In order to run the data loading code using a Spark cluster, please follow these steps:
+
+First, create a Spark cluster: 
+
+- General configuration: Logging – off, Launch mode – Cluster
+
+- Software configuration: Release – emr-5.8.0, Applications – Spark
+
+- Hardware configuration: Instance type - m4.4xlarge, Number of Instances - 3 (1 master and 2 core nodes)
+
+Upload the following folder and scripts to the cluster and HDFS
+
+- new_proc_wan_40_files, which contain 40 data files
+
+- Spark_query.py
+
+- Generate_model.py
+
+After uploading all the files, this is what you should see: 
+
+    $ hadoop fs -ls
+    Found 42 items
+    -rw-r--r--   1 hadoop hadoop       5451 2018-05-07 02:20 Spark_query.py
+    -rw-r--r--   1 hadoop hadoop      16361 2018-05-07 02:20 Generate_model.py
+    -rw-r--r--   1 hadoop hadoop   12502006 2018-05-07 02:29 new_proc_wan_0
+    -rw-r--r--   1 hadoop hadoop   12953864 2018-05-07 02:29 new_proc_wan_10
+    …
+    -rw-r--r--   1 hadoop hadoop   12998283 2018-05-07 02:29 new_proc_wan_60
+    -rw-r--r--   1 hadoop hadoop   12834758 2018-05-07 02:29 new_proc_wan_70
+    -rw-r--r--   1 hadoop hadoop   12893863 2018-05-07 02:29 new_proc_wan_80
+    -rw-r--r--   1 hadoop hadoop   12765595 2018-05-07 02:29 new_proc_wan_90
+
+
+Submitting Spark_query.py will give you the execution times of different query methods described in XX. 
+
+    $ spark-submit --num-executors 2 --executor-cores 1 Spark_query.py
+    …
+    ***************Reading files took 4.208967 second***************
+    ***************Dataframe filter took 10.148717 second***************
+    ***************Dataframe SQl took 8.787971 second***************
+    ***************Partitioning took 111.486392 second***************
+    ***************Reading parquet took 0.630539 second***************
+    ***************SQL(only column) took 0.386598 second***************
+    ***************Writing output took 0.065699 second***************
+    …
+
+This creates a parquet directory myparquet_short.parquet inside HDFS, so if you are running this code multiple times, please remove myparquet_short.parquet before rerunning each time. `$ hadoop fs -rm -R -f myparquet_short.parquet`
+
+Generate_model.py uses directrly queries this parquet to obtain electronic coupling strengths, then computes and saves the TBH. Once you have created myparquet_short.parquet, please run:
+
+    $ time spark-submit --num-executors 2 --executor-cores 1 generate_model.py
+    …
+     [[  1.00549900e+00  -9.93000000e-04  -2.38700000e-03 ...,   0.00000000e+00
+    0.00000000e+00   0.00000000e+00]
+     ..., 
+    [  0.00000000e+00   0.00000000e+00   0.00000000e+00 ...,   0.00000000e+00
+    0.00000000e+00   0.00000000e+00]]
+
+    real	2m32.403s
+    user	2m56.752s
+    sys	0m4.528s
+
+If you are reproducing the results with 200 files, it could be faster to upload the zip file new_proc_wan_200_files, unzip, upload to the HDFS, and move all the files outside of the folder. Please remove the original empty folder after doing so.
+
+    $ hadoop fs -put new_proc_wan_200_files
+    $ hadoop fs -mv new_proc_wan_200_files/new* .
+    $ hadoop fs -rm -R -f new_proc_wan_200_files
+
+
 ## [Profiling](https://stevetorr.github.io/wannier_shift/profiling)
 
 ## [Results and Discussion](https://stevetorr.github.io/wannier_shift/results)
