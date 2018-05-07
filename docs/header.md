@@ -8,6 +8,58 @@
 
 ## [Guide to Using Code](https://stevetorr.github.io/wannier_shift/guide)
 
+### Short walk through of all codes to be added here
+
+### Serial query
+The following are the steps to reproduce our results on serial query. 
+
+  First, please launch an AWS instance:
+
+   - Amazon Machine Image (AMI): Ubuntu Server 16.04 LTS (HVM), SSD Volume Type
+  
+   - Instance type: 1 m4.4xlarge 
+  
+  No additional storage is required, and the default settings can be used for other configurations.
+
+  Install necessary packages:
+ 
+    $ sudo apt-get update
+  
+After confirming that Python is already installed,  
+
+    $ python3 --version 
+    $ Python 3.5.2
+
+install the following:
+
+    $ sudo apt-get install python-pip
+    $ sudo pip install numpy  
+    $ sudo apt-get install unzip
+
+Now upload a zip file that contains 200 files “new_proc_wan_200” to the VM, and unzip:
+
+    $ unzip new_proc_wan_all.zip
+
+After following these steps, the serial_query_profile.py code should be ready to be run in the new_proc_wan_200 directory:
+  
+    $ cd new_proc_wan_200
+    $ python serial_query_profile.py
+
+Successful run will provide you with an output that looks like this:
+
+    Now profiling the file query process. Please run this in the same folder as the new_proc_wan files.
+    ====================
+    Now reading in every data file in serial with thoroughness  2
+    Read file new_proc_wan_0 which took 0.350999 seconds
+    Read file new_proc_wan_2 which took 0.157147 seconds
+    Read file new_proc_wan_4 which took 0.331090 seconds
+    ...
+    Now loading in every 10th file using a worker pool of 12 workers
+    Abbreviated parallel run (only every 10th data set)  took 1.942010 seconds
+    Checking to make sure that the two data sets are consistent:
+    Validation complete!
+
+
 ## [Profiling](https://stevetorr.github.io/wannier_shift/profiling)
 
 ## [Results and Discussion](https://stevetorr.github.io/wannier_shift/results)
