@@ -26,7 +26,7 @@ Spark_query.py compares three spark-based implementations. All of them start by 
 
 ### generate_model.py
 
-Generate_model.py generates the Tight Binding Hamiltonian model, querying the already-generated parquet multiple times. It first constructs atom positions for the 2D material being studied, and computes displacements to perform interpolation and retrieve electronic couplings. The TBH model is built from these couplings and printed in the output. In order to run this code, spark_query.py has to be first executed to create a parquet directory using the desired number of data files. The number of data files to be read can be specified by modifing the following part of spark_query.py.
+Generate_model.py generates the Tight Binding Hamiltonian model, querying the already-generated parquet multiple times. It first constructs atom positions for the 2D material being studied, and computes displacements to perform interpolation and obtain corresponding electronic couplings. The TBH model is built from these couplings and printed in the output. In order to run this code, spark_query.py has to be first executed to create a parquet directory using the desired number of data files. The number of data files to be read can be specified by modifing the following part of spark_query.py.
 
     # Set how many files needed to be read
     files=[]
@@ -39,7 +39,7 @@ Generate_model.py generates the Tight Binding Hamiltonian model, querying the al
 
 ### Serial Loading on AWS
 
-In order to compare different implementations and make our results reproducible, we ran all of the above codes on AWS. The following are the guides to rerun our experiments using 400 files for serial_query_profile.py and 40 files for the others. We also used 200 files to produce some of our results, so we have included comments for curious readers.
+In order to compare different implementations and make our results reproducible, we ran all of the above codes on AWS. The following are the guides to rerun our experiments using 400 files for serial_query_profile.py and 40 files for the others. Modifications of the codes are not necessary unless you would like to try with other number of files. We used 200 files to produce some of our results, so we have included comments for curious readers.
 
 
 To execute serial_query_profile.py, please launch an AWS instance:
