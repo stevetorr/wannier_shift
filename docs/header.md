@@ -352,12 +352,19 @@ The two-dimensional layer heterostructure stack hold promising applications in t
 
 
 Mac Pro Mid 2010 model
+
 OS: macOS High Sierra (version 10.13.4)
+
 CPU: 2 x 6-core 2.66 GHz Intel Xeon (256KB of L2 cache per core and 12 MB L3 cache per processor, 6.4 GT/s interconnect speed)
-System Hard disk: Solid state drive (512GB)
-Data storage hard disks: WD 4TB hard drives (conventional magnetic drives)
+
+System Hard disk: Solid State Drive (512GB)
+
+Data Strange Hard Disk: WD 4TB hard drives (conventional magnetic drives)
+
 Memory: 64 GB 1333 MHz DDR3 ECC SDRAM
+
 Fixed IP address on campus: 10.243.34.140
+
 Graphics: 2 x AMD ATI Radeon HD 5770 (1024MB VRAM)
 
 **FIGURE: THE STATION**
