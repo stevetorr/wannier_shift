@@ -128,8 +128,7 @@ Possible ways to improve the interpolation we judged were providing some sort of
 ##### Insert profiling information/figures about data interpolation here. If we want it.
 
 
-
-
+ 
 
 
 ## [Guide to Using Code](https://stevetorr.github.io/wannier_shift/guide)
@@ -335,6 +334,11 @@ Additional filters can be added to the wrapper to remove the unnecessary informa
 The Postprocessing script reads the information from the corresponding POSCAR (crystal structure) and hamiltonian modeling file (*_hr.dat) and the implementation can be found in rec_proc.py. This will go through the all 400 sets of files from the output to process them into more intuitive files (new_proc_wan_*) which contains the atomic couplings. This script can be parallelized by multiprocessing module provided in the standard Python interpreter. As in the plot, we observe the improved performance when we parallelize the data processing. The benchmark is done with a subset (100 sets) of the full data (400 sets) we have. The machine we have has 12 physical cores and we investigate the performance up to 12 cores using pool function in multiprocessing toolkit. As the note, we also test the performance for data stored on the solid state drive and the conventional magnetic hard disk. The solid state drive provides slightly better performance over the conventional magnetic storage device.
 
 ## [Profiling](https://stevetorr.github.io/wannier_shift/profiling)
+
+### Serial Loading with Standard Python code
+
+## working in a another place, will be added soon
+
 
 ## [Results and Discussion](https://stevetorr.github.io/wannier_shift/results)
 
