@@ -38,9 +38,11 @@ Generate_model.py generates the Tight Binding Hamiltonian model, querying the al
 
 
 ### Serial Loading on AWS
-The following are the steps to reproduce our results on serial loading. 
 
-  First, please launch an AWS instance:
+In order to compare different implementations and make our results reproducible, we ran all of the above codes on AWS. The following are the guides to rerun our experiments using 400 files for serial_query_profile.py and 40 files for the others. We also used 200 files to produce some of our results, so we have included comments for curious readers.
+
+
+To execute serial_query_profile.py, please launch an AWS instance:
 
    - Amazon Machine Image (AMI): Ubuntu Server 16.04 LTS (HVM), SSD Volume Type
   
