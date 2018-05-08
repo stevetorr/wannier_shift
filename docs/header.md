@@ -166,10 +166,9 @@ Generate_model.py generates the Tight Binding Hamiltonian model, querying the al
 
 ### Guide to Running on AWS
 
-#### Serial Loading
-
 In order to compare different implementations and make our results reproducible, we ran all of the above codes on AWS. The following are the guides to rerun our experiments using 400 files for serial_query_profile.py and 40 files for the others. Modifications of the codes are not necessary unless you would like to try with other number of files. We used 200 files to produce some of our results, so we have included comments for curious readers.
 
+#### Serial Loading
 
 To execute serial_query_profile.py, please launch an AWS instance:
 
@@ -199,7 +198,7 @@ Now upload the zip file “new_proc_wan_serial” to the VM, and unzip:
 After following these steps, the Serial_query_profile.py code should be ready to be run in the new_proc_wan_serial directory:
   
     $ cd new_proc_wan_serial
-    $ python Serial_query_profile.py
+    $ python serial_query_profile.py
 
 Successful run will provide you with an output that looks like this:
 
@@ -232,16 +231,16 @@ Upload the following folder and scripts to the cluster and HDFS
 
 - new_proc_wan_40_files, which contain 40 data files
 
-- Spark_query.py
+- spark_query.py
 
-- Generate_model.py
+- generate_model.py
 
 After uploading all the files, this is what you should see: 
 
     $ hadoop fs -ls
     Found 42 items
-    -rw-r--r--   1 hadoop hadoop       5451 2018-05-07 02:20 Spark_query.py
-    -rw-r--r--   1 hadoop hadoop      16361 2018-05-07 02:20 Generate_model.py
+    -rw-r--r--   1 hadoop hadoop       5451 2018-05-07 02:20 spark_query.py
+    -rw-r--r--   1 hadoop hadoop      16361 2018-05-07 02:20 generate_model.py
     -rw-r--r--   1 hadoop hadoop   12502006 2018-05-07 02:29 new_proc_wan_0
     -rw-r--r--   1 hadoop hadoop   12953864 2018-05-07 02:29 new_proc_wan_10
     …
