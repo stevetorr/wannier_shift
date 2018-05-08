@@ -158,6 +158,54 @@ If you are reproducing the results with 200 files, it could be faster to upload 
     $ hadoop fs -rm -R -f new_proc_wan_200_files
 
 
+
+
+### Instructions for VASP+Wannier90
+
+To generate the data set, one needs the following code installed in the computing resource:
+
+Density Functional Theory (DFT) code: Vienna Ab initio Simulation Package (VASP) : https://www.vasp.at/
+Wannier functions and transformations from DFT: Wannier90 at http://www.wannier.org/
+
+To install these codes , the instructions can be found from the corresponding webpage, introduction files in the code package. We will not repeat the details here. In many supercomputing centers some codes are also compiled already and packaged into a module to be used. Users can replace the corresponding name/path to the executable to run the script.
+
+The example setup folder to execute the computation is in the GitHub. First, the setups for running VASP DFT code can be seen in KSCAN subfolder. Within this folder:
+
+SCF folder is the first stage of the calculation for VASP DFT which completes the self-consistent calculations for the electron charge and other physical quantities. The charge information can then be passed to the next stage of the calculations.
+BANDS folder runs the non self-consistent calculations to derive the band structure corresponding to the crystal structure. This is to be used to validate the quality of Wannier interpolation for the band structure in the next stage.
+WAN folder is the final stage to derive the Bloch wave functions and perform the Wannier transformation to obtain the localized Wannier basis function as atomic orbitals. The VASP code is executed first to derive the necessary projections for obtaining Wannier orbitals and then Wannier90 code continues with these projections to derive the localized orbitals and the tight-binding model.
+
+Brief descriptions for the input files:
+INCAR: which contains the input parameters for running the VASP DFT code such as the energy cutoff, flags to steer the calculations
+KPOINTS: the mesh grid or sampling of k points in the reciprocal space
+POTCAR: the pseudo potential files for each atomic species to be used in DFT simulations.
+POSCAR: contains the descriptions for the crystal structure including the primitive vectors for the real space and the basis positions for the constituent atoms.
+wannier90.win: setup file for executing Wannier90 code to derive Wannier orbitals and the modeling for the band structure. For example, this file specifies the energy window to derive the model, what types of atoms / orbitals should be included, etc.
+
+As we see in the introduction, we are going to sample various configurations for the crystal structure. To prepare the files appropriate (POSCAR and wannier90.win files) for each calculation, the script gen_pos.py performs the task and generates 400 different configurations for the stacked TaS2 bilayer crystal. All the files generated will be stored in the allpos subfolder.
+
+For the vasp_wan.py script, this prepares the environment to start the VASP+Wannier90 simulations. This script is designed to simulate the TaS2 crystal in our studies with the corresponding parameters. However, this can be easily tuned to the desired crystal type and different symmetry types. This script repeatedly execute 400 configurations for the varied TaS2 crystal. The results of the simulation of Wannier modeling will be stored in the data subfolder.
+
+The main workhorse to generate the data is the VASP code which is a commercial DFT code. We are not changing the code for the purpose of the class project, however we would like to gauge the performance of this DFT code in terms of the number of CPU used to execute the code. However, we note that this is a very complicated code and depending on the number of CPUs used to execute the code, the default parameters in performing the simulation would adjust themselves as well. For example, the number of bands in the electronic structure will be changed to be the multiples of the number of the CPUs. This means, it will not be completely fair to compare the performance depending on the number of CPUs. However, we can still roughly see how the performance scale at the size of our crystal structure and simulation scale here. We find about 6-8 CPUs are suitable for running the simulation.
+
+
+
+### Postprocessing for Wannier90 data
+
+One very interesting aspect of our project is, we have to prepare our own data set to start with by running VASP+Wannier90 rather than working with existing data available on the internet/database. This gives us the chance to think about how we can clean up and manage, distill the necessary information from simulation results. We among the group members discuss over the appropriate data structure to be presented and processed before feeding into the follow-up database stage/process. 
+
+After the discussion, we design the post process script that wraps the detailed physics background into the concise postprocessed files. These files from the wrapper contains only the essential information for the orbital coupling. These can be represented by each data entry which contains the following information for the coupling and features:
+
+For the initial atom site, what is the atomic type, orbital type, orbital index
+For the final atom site, what is the atomic type, orbital type, orbital index
+The geometry, what is the displacement vector (relative position) between these two orbitals (the hopping direction/vector)
+The strength for the coupling, the real part and the imaginary part of the hamiltonian.
+Neighboring environment: the primitive vectors for the crystal (a1 and a2) which encodes the compressions and strain information of the parent crystal.
+Further generalizations are also possible to capture other ways to vary the crystal confutation. In other words, other features to identify and specify the configuration and later would be used for potentially machine learning algorithm. This can be done by simply adding processing modules to the postprocess script and derive the necessary information to be retained. They can be added as additional data column.
+Additional filters can be added to the wrapper to remove the unnecessary information. Though this is not implemented in our code here. For example, to reduce the size of the data set, we can remove the atomic coupling that has a very large hopping distance (we can set a cutoff radius). The physical idea is that, the larger the hopping range is, the smaller the coupling will be and hence can be ignored from the recording the essential atomic coupling information in the database.
+
+The Postprocessing script reads the information from the corresponding POSCAR (crystal structure) and hamiltonian modeling file (*_hr.dat) and the implementation can be found in rec_proc.py. This will go through the all 400 sets of files from the output to process them into more intuitive files (new_proc_wan_*) which contains the atomic couplings. This script can be parallelized by multiprocessing module provided in the standard Python interpreter. As in the plot, we observe the improved performance when we parallelize the data processing. The benchmark is done with a subset (100 sets) of the full data (400 sets) we have. The machine we have has 12 physical cores and we investigate the performance up to 12 cores using pool function in multiprocessing toolkit. As the note, we also test the performance for data stored on the solid state drive and the conventional magnetic hard disk. The solid state drive provides slightly better performance over the conventional magnetic storage device.
+
 ## [Profiling](https://stevetorr.github.io/wannier_shift/profiling)
 
 ## [Results and Discussion](https://stevetorr.github.io/wannier_shift/results)
@@ -209,6 +257,13 @@ Our chief concerns are as follows. It is very time-expensive to generate data se
 
 
 ### Our Method
+
+
+### DFT+Wannier method:
+DFT is the state of the art microscopic quantum mechanical simulation for materials, however it is not straightforward to derive the physics picture from the massive information output from running a DFT simulation. Intuitively what Wannier transformation does is to interpret the DFT calculation results in terms of localized Wannier function basis. These can be thought of as the chemical atomic orbitals that participate in the bonding and hybridization of the electrons. As the byproduct, the electronic properties is captured in the Wannier tight-binding model that encapsulate various bonding strength inside the crystal. The first step is to apply this DFT+Wannier method to various types of two-dimensional layers and derive their corresponding tight-binding models. This procedure immediately gives intuitive and clear physics picture for the orbital hybridization as illustrated in the figure for the model we derive for a typical transition metal dichalcogenide layer. We can see the participating orbitals at low energy are the d orbitals from transition metal atoms and p orbitals from chalcogenide atoms. The counting of the orbitals is the following, there are 5 orbitals in Wannier d orbitals and 2 atoms with three p orbitals each. Hence, we have in total 5+2x3=11 orbitals for each single layer. The number would double when either the spin degrees of freedom is included or the second layer is added to the system. The focus of our project is to derive the interlayer coupling terms across the layers and they can be extracted with the DFT+Wannier method applied for the bilayer stack.
+
+
+**INSERT FIGURE HERE**
 
 #### VASP and W90
 The extremely fine mesh of configurations which we produce via large batches of DFT calculations comprises a big compute phase of this project; we perform calculations of N>>100 configurations, each of which takes on the order of 15 minutes to generate the optimized electron wavefunction and then convert into Wannier functions appropriately. These runs are performed in the commercial Vienna Ab Initio Simulation Package \[[VASP](https://www.vasp.at/)\]. Calculations are run from a set of physical configuration parameters and run configurations, such as the spatial orientation of the unit cell, or a cutoff for how fine the density is resolved. The ‘Wannierization’ is performed by running Wannier90, a software package which converts wavefunctions from the plane-wave formulation to the Wannier function formalism.  
@@ -290,9 +345,22 @@ Possible ways to improve the interpolation we judged were providing some sort of
 
 ### Validation tests for the TBH
 
-### Future Directions/Expansions
+### Future Directions/Expansions: physics/simulation part of the story
+The two-dimensional layer heterostructure stack hold promising applications in the electronics and fundamental physics research. To facilitate and implement the fast screening and simulation of the electronic properties for the stacks, the database tools developed here paves the groundwork for the future studies. With the infrastructure built for the material database, the data generation for various layer types can be automated. The generalization includes variations of the crystal geometry and configuration used for the simulation such as the deformations of the layer geometry from the strain perturbations, the height variations from the compressed pressure applied, various constituent atoms in the layers, etc. Massive atomic coupling information can be extracted from these simulations and the database is suitable to be used to manage the data set and to bridge other applications. For example, one might envision the machine learning algorithm developed to extract and model the feature for the atomic coupling and the dependence on the local environment. This would allow the prediction and modeling of the atomic coupling give a local configuration that appear in the stacked layers (locally). The database itself is also very useful to be used to visualize the atomic coupling depending on each orbital type, or used to derive simpler effective low-energy models for theoretical physics research. The simulation would then guide the fabrication of the devices and make the prediction of their physical properties. On the other hand, because of the layer geometry, the layer materials can also be probed by various experimental methods such as scanning tunneling microscope or optical measurements. These probing techniques directly access the electronic properties and can be used to validate the predications we have for the layer stacks. This would give the feedback for the theoretical modeling and further improve the quality for the simulation method. Our method is designed to retain the information from first principle calculations (DFT) and can be improved systematically without any unjustified ad hoc ansatz or assumptions for the atomic coupling. A database that manage the set of atomic coupling data is highly relevant for the field of studies on these two-dimensional layered materials and their simulations. 
+
+### Workstation details:
 
 
+Mac Pro Mid 2010 model
+OS: macOS High Sierra (version 10.13.4)
+CPU: 2 x 6-core 2.66 GHz Intel Xeon (256KB of L2 cache per core and 12 MB L3 cache per processor, 6.4 GT/s interconnect speed)
+System Hard disk: Solid state drive (512GB)
+Data storage hard disks: WD 4TB hard drives (conventional magnetic drives)
+Memory: 64 GB 1333 MHz DDR3 ECC SDRAM
+Fixed IP address on campus: 10.243.34.140
+Graphics: 2 x AMD ATI Radeon HD 5770 (1024MB VRAM)
+
+**FIGURE: THE STATION**
 
 ## Bibliography
 
