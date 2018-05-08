@@ -134,23 +134,25 @@ Possible ways to improve the interpolation we judged were providing some sort of
 
 ## [Guide to Using Code](https://stevetorr.github.io/wannier_shift/guide)
 
+### Code
+
 In the course of developing an efficient look-up tool, we generated the following codes. 
 
 - serial_query_profile.py add link?
 - spark_query.py
 - generate_model.py
 
-### serial_query_profile.py
+#### serial_query_profile.py
 
 Serial_query_profile.py is a standard Python code generated to obtain the serial execution time of a single query along with a parallel execution time with a worker Pool. It reads all files into local memory, goes through every line of each file, and uses a list comprehension to parse the lines to find the desired k and l orbitals. It returns the lines as a list of floating point values (Dx,Dy,Dz,Coupling), and the time it takes from loading files to returning these values is collected and printed for each file.
 
 When this code is executed, four tasks are completed – two serial and two parallel loadings, for all 400 files and for every N (“thoroughness”) files. The default N is 10, and the default number of workers is 12. 
 
-### spark_query.py
+#### spark_query.py
 
 Spark_query.py compares three spark-based implementations. All of them start by reading 400 data files into one dataframe, and return the floating point values as a numpy array. In the first implementation, the dataframe is transformed by dataframe.filter( ). Another implementation creates a temporary view of the dataframe and runs SQL directly on it. The last implementation partitions and writes the data in the format of parquet. The data are stored in new directories, with partitioning column values encoded in the path of each partition directory. When querying by orbital indices k and l, the data in the corresponding partition directory will be queried directly. Running this code gives the execution time of each implementation in an easily comparable format. 
 
-### generate_model.py
+#### generate_model.py
 
 Generate_model.py generates the Tight Binding Hamiltonian model, querying the already-generated parquet multiple times. It first constructs atom positions for the 2D material being studied, and computes displacements to perform interpolation and obtain corresponding electronic couplings. The TBH model is built from these couplings and printed in the output. In order to run this code, spark_query.py has to be first executed to create a parquet directory using the desired number of data files. The number of data files to be read can be specified by modifing the following part of spark_query.py.
 
@@ -162,8 +164,9 @@ Generate_model.py generates the Tight Binding Hamiltonian model, querying the al
       if i % 10 == 0: # this is for 40 files
           files.append(prefix+str(i))
 
+### Guide to Running on AWS
 
-### Serial Loading on AWS
+#### Serial Loading
 
 In order to compare different implementations and make our results reproducible, we ran all of the above codes on AWS. The following are the guides to rerun our experiments using 400 files for serial_query_profile.py and 40 files for the others. Modifications of the codes are not necessary unless you would like to try with other number of files. We used 200 files to produce some of our results, so we have included comments for curious readers.
 
@@ -213,7 +216,7 @@ Successful run will provide you with an output that looks like this:
     Validation complete!
 
 
-### Loading using Spark cluster on AWS
+#### Loading using Spark cluster
 
 In order to run the data loading code using a Spark cluster, please follow these steps:
 
