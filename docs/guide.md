@@ -35,7 +35,7 @@ for i in range(400):
 ````
 ## Guide to Running on AWS
 
-In order to compare different implementations and make our results reproducible, we ran all of the above codes on AWS. The following are the guides to re-run our experiments using 400 files for serial_query_profile.py and 40 files for the others. Modifications of the codes are not necessary unless you would like to try with other number of files. We used 200 files to produce some of our results, so we have included comments for curious readers.
+In order to compare different implementations and make our results reproducible, we ran all of the above codes on AWS. The following are the guides to re-run our experiments using 400 files for serial_query_profile.py and 40 files for the others. Modifications of the codes are not necessary unless you would like to try with other number of files. We used 200 files to produce some of our results, so we have included comments for curious readers. Terminal windows were exported as texts and saved as example outputs [here](https://drive.google.com/drive/folders/1TPO2H14AS_1CgilDmRqsAZzv_I4oeqrX?usp=sharing), which can be helpful when comparing your output with ours.
 
 ### Serial Loading
 
@@ -74,13 +74,23 @@ A successful run will provide you with an output that looks like this:
 ```
 Now profiling the file query process. Please run this in the same folder as the new_proc_wan files.
 ====================
-Now reading in every data file in serial with thoroughness  2
-Read file new_proc_wan_0 which took 0.350999 seconds
-Read file new_proc_wan_2 which took 0.157147 seconds
-Read file new_proc_wan_4 which took 0.331090 seconds
+Now reading in every data file in serial with thoroughness  1
+Read file new_proc_wan_0 which took 0.335471 seconds
 ...
+Read file new_proc_wan_399 which took 0.311107 seconds
+Total serial run took 128.265309 seconds
+====================
+Now loading in every 10th file in serial.
+Read file new_proc_wan_0 which took 0.331149 seconds
+...
+Read file new_proc_wan_390 which took 0.315048 seconds
+Abbreviated serial (only every 10th data set) run took 12.924213 seconds.
+====================
+Now loading in all files using a worker pool, using 12 workers
+Total parallel run took 17.983207 seconds
+====================
 Now loading in every 10th file using a worker pool of 12 workers
-Abbreviated parallel run (only every 10th data set)  took 1.942010 seconds
+Abbreviated parallel run (only every 10th data set)  took 1.986443 seconds
 Checking to make sure that the two data sets are consistent:
 Validation complete!
 ```
@@ -120,7 +130,7 @@ Found 42 items
 Submitting Spark_query.py will give you the execution times of different query methods described in XX. 
 
 ```
-$ spark-submit --num-executors 2 --executor-cores 1 Spark_query.py
+$ spark-submit --num-executors 2 --executor-cores 1 spark_query.py
 …
 ***************Reading files took 4.208967 second***************
 ***************Dataframe filter took 10.148717 second***************
