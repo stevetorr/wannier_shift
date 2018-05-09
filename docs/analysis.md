@@ -1,14 +1,13 @@
 
-## Profiling the Problem
+# Profiling the Problem
 
-In order to better understand where advantages of parallelization could come in to this project, we first draw attention to the salient features of the problem.
+**On this page, we detail our thought process in understanding the necessary computational tasks and deciding the best course of action to pursue.**
+
+In order to better understand where advantages of parallelization could come in to this project, we first draw attention to the salient features of the problem. 
 
 ### Data Generation - Big Compute
 
-The batched data generation involves calling several hundred to several thousand different calculations of the VASP imeplementation of Density Functional Theory. All of the calculations' input parameters are deterministically generated and may proceed in any order; further, VASP is commercial software which is optimized already for parallel implementation on the per-calculation basis, exploiting multiple cores to more rapidly solve for the electronic density function and associated energy. **Therefore, the process of generating our data sets is ripe for embarassingly parallel MPI implementation.** 
-
-##### Insert profiling information/figures about VASP calls here.
-
+The batched data generation involves calling several hundred to several thousand different calculations of the VASP imeplementation of Density Functional Theory. All of the calculations' input parameters are deterministically generated and may proceed in any order; further, VASP is commercial software which is optimized already for parallel implementation on the per-calculation basis, exploiting multiple cores to more rapidly solve for the electronic density function and associated energy. **Therefore, the process of generating our data sets is ripe for embarassingly parallel MPI implementation.**
 
 ### Data Management - Big Data
 
