@@ -50,6 +50,10 @@ Fixed IP address on campus: 10.243.34.140
 Graphics: 2 x AMD ATI Radeon HD 5770 (1024MB VRAM)
 ```
 
+
+## Spark Implementations
+We tried three different Spark implementations of loading in a database of files and querying it for the desired values, which are documented in the code guide. In the first implementation, a Spark  dataframe is generated and then transformed by dataframe.filter( ). Another implementation creates a temporary view of the dataframe and runs SQL directly on it. The last implementation partitions and writes the data in the format of Parquet. 
+
 ## Analysis of Methods
 
 
@@ -62,6 +66,7 @@ The batched data generation involves calling several hundred to several thousand
 Next, we turn to managing the data. When developing a tight-binding model for a system of atoms, we are attempting to map displacements between atoms (which arise from a twisting angle applied to a bilayer system) to the resultant coupling between their orbitals. In Transition Metal Dichalcogenide systems, we have 11 orbitals in the three-atom unit cell of a monolayer (2 sets of three p-orbitals for the Chalcogens, and five d-orbitals for the Transition Metal). In a twisted sample, we seek to find the orbital interaction between every pair of orbitals in the material. Therefore, we move from the displacements between individual atoms to the coupling strength of the atom's orbitals.
 
 We obtain local information about how the orbital coupling should behave from the Wannierization. We end up with a data set of hundreds of displaced unit cells with associated orbital-orbital energy couplings. Querying this database is not trivial, and represents a query of several million data points to find the relevant values. Even loading the relevant data into usable memory is not a trivial task for the computer. **Therefore, managing this enormous dataset, and querying it efficiently, is ammenable to attack via Spark or other distributed database management frameworks.**. 
+
 
 # [>> Guide To Code >>](https://stevetorr.github.io/wannier_shift/guide)
 # [<< Intro, Background, Motivation<<](https://stevetorr.github.io/wannier_shift/background)
