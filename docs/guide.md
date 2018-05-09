@@ -203,7 +203,7 @@ Further generalizations are also possible to capture other ways to vary the crys
 
 Additional filters can be added to the wrapper to remove the unnecessary information. Though this is not implemented in our code here. For example, to reduce the size of the data set, we can remove the atomic coupling that has a very large hopping distance (we can set a cutoff radius). The physical idea is that, the larger the hopping range is, the smaller the coupling will be and hence can be ignored from the recording the essential atomic coupling information in the database.
 
-#[>> Profiling the Code >>](https://stevetorr.github.io/wannier_shift/profile)
-#[<< Methods <<](https://stevetorr.github.io/wannier_shift/overview)
+# [>> Profiling the Code >>](https://stevetorr.github.io/wannier_shift/profile)
+# [<< Methods <<](https://stevetorr.github.io/wannier_shift/overview)
 
 
