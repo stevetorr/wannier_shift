@@ -15,7 +15,7 @@ Because they are sheets of materials, one might be interested in stacking differ
 
 To understand the difficulty, we can first look at the system from a geometric point of view. Moire patterns is the interference pattern created when two similar images are overlapping with each other. It can be observed in daily life such as the photography.
 
-## ![Moire Pattern from Wikipedia](moire_pattern.png) 
+## ![Moire Pattern from Wikipedia](/figures/moire_pattern.png) 
 ### This moire pattern photo is taken from the wikipedia page  on [Moire Patterns](https://en.wikipedia.org/wiki/Moir%C3%A9_pattern). It shows two identical planes of lines at a relative twist angle $\alpha$. Note the periodic pattern that emerges in their overlap, which is characterized not just by the planes themselves but by $\alpha$.
 
 The overlap between two images would create a long-wavelength varying pattern in the combined image. The scale of this long-wavelength variation is determined by the degree of the mismatch between layers. The smaller the mismatch is, the larger the length scale is for the spatial variations. The similar phenomena would occur for atomic crystals as well and the two-dimentional geometry for the layered materials are perfect to illustrate Moire pattern physics. 
