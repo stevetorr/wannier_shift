@@ -1,5 +1,5 @@
 
-# Profiling the Problem
+# Analyzing the problem
 
 **On this page, we detail our thought process in understanding the necessary computational tasks and deciding the best course of action to pursue.**
 
