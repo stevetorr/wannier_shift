@@ -349,11 +349,11 @@ The mere serial query (shown with blue bars) took 13 s to query 40 files, and th
 
 #### Dataframe Filtering and Spark.sql
 
-A Spark version of the code that is included in spark_query.py was run on a Spark cluster with one Master and two Worker m4.2xlarge instances. m4.2xlarge was chosen as it has 8 vCPUs and using two of it allowed us to experiment with 12 cores, which is what the workstation has. This code created a dataframe and used dataframe.filter() to collect the couplings, and also created a temporary view and ran spark.sql on it. The query above (collecting information for orbital 11 - orbital 11 coupling) for 40 files was also tested here. The next figure shows the execution time and speedup as a function of the number of cores. 
+A Spark version of the query code that is included in spark_query.py was run on a Spark cluster with one Master and two Worker m4.2xlarge instances. m4.2xlarge was chosen as it has 8 vCPUs and using two of it allowed us to test our codes with 12 cores, which is what the workstation has. This code first creates a dataframe and uses dataframe.filter() to collect the couplings, and also creates a temporary view and runs spark.sql on it. The query above (collecting information for orbital 11 - orbital 11 coupling) for 40 files was also tested here. The next figure shows the execution time and speedup as a function of the number of cores. 
 
 <img src="../figures/m4.2xlarge.png" width="800">
 
-With 12 cores, the execution time of 4 s for dataframe.filter() and that of 3 s for spark.sql were obtained. However, the execution time increased for larger number of cores, most likely because the actual number of cores in the instance is smaller due to hyperthreading. 
+With 12 cores, the execution time of 4 s for dataframe.filter() and that of 3 s for spark.sql were obtained. However, the execution time increased slightly for larger number of cores, most likely because the actual number of cores in the instance is smaller due to hyperthreading. For this reason we decided to use m4.4xlarge instances. 
 
 ### Loading using Spark Cluster with m4.4xlarge Instances
 
