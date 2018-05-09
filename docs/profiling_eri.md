@@ -33,4 +33,9 @@ The parquet file needs to be generated only once for any number of queries done 
 
 #### Experiment with 200 files
 
+Now we executed the code with 200 files and the execution time and speedup are shown below. 
+
+<img src="../figures/Files_comparison.png" width="600">
+<img src="../figures/40vs200.png" width="800">
+
 
