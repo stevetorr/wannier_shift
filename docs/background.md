@@ -44,4 +44,4 @@ In order to study twisted bilayer TMDC systems, we need to understand the intera
 
 # [>> Project Overview >>](https://stevetorr.github.io/wannier_shift/overview)
 
-# [<< Header Page <<](https://stevetorr.github.io/wannier_shift/header)
+# [ ^^ Back to Header ^^ ](https://stevetorr.github.io/wannier_shift/header)
