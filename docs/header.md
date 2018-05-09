@@ -1,16 +1,14 @@
 # Wannier Shift
-## A project by Shiang Fang, Eri Muramoto, Steven Torrisi, and Tianning Zhao
+### A project by Shiang Fang, Eri Muramoto, Steven Torrisi, and Tianning Zhao
 
 
 ## [Intro, Background, and Motivation](https://stevetorr.github.io/wannier_shift/background) 
 
-## [Project Overview](https://stevetorr.github.io/wannier_shift/plan)
-
-## [Project Analysis](https://stevetorr.github.io/wannier_shift/analysis)
+## [Project Overview](https://stevetorr.github.io/wannier_shift/overview)
 
 ## [Guide to Using Code](https://stevetorr.github.io/wannier_shift/guide)
 
-## [Profiling](https://stevetorr.github.io/wannier_shift/profiling)
+## [Profiling](https://stevetorr.github.io/wannier_shift/profile)
 
 ## [Results and Discussion](https://stevetorr.github.io/wannier_shift/results)
 
