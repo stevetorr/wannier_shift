@@ -185,6 +185,8 @@ For the vasp_wan.py script, this prepares the environment to start the VASP+Wann
 
 The main workhorse to generate the data is the VASP code which is a commercial DFT code. We are not changing the code for the purpose of the class project, however we would like to gauge the performance of this DFT code in terms of the number of CPU used to execute the code. However, we note that this is a very complicated code and depending on the number of CPUs used to execute the code, the default parameters in performing the simulation would adjust themselves as well. For example, the number of bands in the electronic structure will be changed to be the multiples of the number of the CPUs. This means, it will not be completely fair to compare the performance depending on the number of CPUs. However, we can still roughly see how the performance scale at the size of our crystal structure and simulation scale here. We find about 6-8 CPUs are suitable for running the simulation.
 
+![VaspProfile](figures/vasp_profile.png)
+
 
 
 ### Postprocessing for Wannier90 data
@@ -202,3 +204,6 @@ Further generalizations are also possible to capture other ways to vary the crys
 Additional filters can be added to the wrapper to remove the unnecessary information. Though this is not implemented in our code here. For example, to reduce the size of the data set, we can remove the atomic coupling that has a very large hopping distance (we can set a cutoff radius). The physical idea is that, the larger the hopping range is, the smaller the coupling will be and hence can be ignored from the recording the essential atomic coupling information in the database.
 
 The Postprocessing script reads the information from the corresponding POSCAR (crystal structure) and hamiltonian modeling file (*_hr.dat) and the implementation can be found in rec_proc.py. This will go through the all 400 sets of files from the output to process them into more intuitive files (new_proc_wan_*) which contains the atomic couplings. This script can be parallelized by multiprocessing module provided in the standard Python interpreter. As in the plot, we observe the improved performance when we parallelize the data processing. The benchmark is done with a subset (100 sets) of the full data (400 sets) we have. The machine we have has 12 physical cores and we investigate the performance up to 12 cores using pool function in multiprocessing toolkit. As the note, we also test the performance for data stored on the solid state drive and the conventional magnetic hard disk. The solid state drive provides slightly better performance over the conventional magnetic storage device.
+
+![PostProcessing](figures/PP_profile.png)
+
