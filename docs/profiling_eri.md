@@ -48,7 +48,11 @@ Now we executed the code with 200 files and the execution time and speedup are s
 
 #### Query + TBH Model Building
 
+Having developed the query code, we combined it with the interpolation code that builds the TBH models, and we created generate_model.py. This code first creates a parquet, reads the parquet and creates a temporary view, and queries it about 300 times to populate the TBH matrix The execution time and speedup were compared for different number of cores using 40 files. We also tested how partitioning when creating the parquet affects the total time. 
+
 <img src="../figures/Partition_comparison.png">
+
+With a parquet that contained the data partitioned by atom_from_index and atom_to_index, which are the keys when querying, the execution time was as low as 150 s (figure on the right). While the execution time decreases with increasing number of cores for the parquet without partitioning, the execution time does not change for the fully partitioned data. In order to further improve our code, parallelization of the interpolation part will be necessary, and this is will be our next task. 
 
 #### Tuning
 
@@ -58,7 +62,7 @@ One of the most important performance tuning aspects for Spark SQL is caching da
 
 There are also some other configurations that we can play with, including split computation, broadcast join threshold, shuffle partitions. We tested our code with these configurations using 16 cores and 200 files, but it does not benefit much from the tuning. The detailed results are shown as below. 
 
-<img src="../figures/Tuning.png">
+<img src="../figures/Tuning.png" width="800">
 
-It seems that partitioning is benefiting a little from increase of shuffle partitions, but we didn’t see big changes for all the others. Partitioning here refers to transformation of data structure from dataframe to partitioning table. We did run partitionBy in this part and this could possibly explain the improvement brought by changing shuffle partitions. But for the others, since in our case there is no heavy computation or multiple join/aggregation operations duing the query, most of the configuration settings are not expected to make a big difference on the performance. 
+It seems that partitioning is benefiting a little from increase of shuffle partitions, but we did not see big changes for all the others. Partitioning here refers to transformation of data structure from dataframe to partitioning table. We did run partitionBy in this part and this could possibly explain the improvement brought by changing shuffle partitions. But for the others, since in our case there is no heavy computation or multiple join/aggregation operations duing the query, most of the configuration settings are not expected to make a big difference on the performance. 
 
