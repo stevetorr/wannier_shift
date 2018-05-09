@@ -3,6 +3,8 @@ title: Background
 ---
 # Introduction, Background, and Motivation
 
+**On this page, we provide an overview of the physics background and an introduction to why this task is relevant and computationally demanding.**
+
 ## Physical Background: Motivation for Layered Materials
 
 Conventional bulk solids are made of three-dimensional crystals with strong chemical bonding in between atomic constituents. Ever since the discovery of graphene \[[Nobel2010](https://www.nobelprize.org/nobel_prizes/physics/laureates/2010/press.html)\], there have been intense reserach investigations on  layered materials. These are materials with strong chemical bonding between the atoms in the same sheet and weaker van der Waals interactions between the neighboring sheets. Because of the nature of the weak interlayer bonding, individual sheets of atoms can be exfoliated via a mechanical method involving scotch tape. Ever since, the library of experimentally accessible 2D materials is constantly growing with new types of layers that can be exfoliated or fabricated. They can host a variety range of physical properties as well. For example, some layers can be magnetic or superconducting. There are great implications for the applications using these layered materials in industry or fundamental research.
@@ -39,3 +41,7 @@ DFT typically generates wavefunctions that are in the plane-wave basis, so the p
 Therefore, MLWF’s are useful to bring the toolset of DFT to bear on large systems. For instance, one of our group members demonstrated how parameterizing a tight binding model for Transition Metal Dichalcogenides could come from MLWF’s and DFT. \[[Fang 2015](https://arxiv.org/abs/1506.08860)\]; learning how to model two-dimensional twisted systems is a vigorous and active field of research, spurned on by the recent discovery of twisted bilayer graphene superconductors.
 
 In order to study twisted bilayer TMDC systems, we need to understand the interactions between atoms in a wide variety of spatial configurations; even for modest twist angles, the periodicity which is necessary for DFT calculations is only accessible by very large systems of hundreds of atoms. Therefore, a tight-binding model informed by Wannier functions is one of the precious few techniques we have to approach calculating properties of twisted 2D systems.
+
+# [>> Project Overview >>](https://stevetorr.github.io/wannier_shift/overview)
+
+# [<< Header Page <<](https://stevetorr.github.io/wannier_shift/header)
