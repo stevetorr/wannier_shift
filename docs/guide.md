@@ -183,9 +183,6 @@ As we see in the introduction, we are going to sample various configurations for
 
 For the vasp_wan.py script, this prepares the environment to start the VASP+Wannier90 simulations. This script is designed to simulate the TaS2 crystal in our studies with the corresponding parameters. However, this can be easily tuned to the desired crystal type and different symmetry types. This script repeatedly execute 400 configurations for the varied TaS2 crystal. The results of the simulation of Wannier modeling will be stored in the data subfolder.
 
-The main workhorse to generate the data is the VASP code which is a commercial DFT code. We are not changing the code for the purpose of the class project, however we would like to gauge the performance of this DFT code in terms of the number of CPU used to execute the code. However, we note that this is a very complicated code and depending on the number of CPUs used to execute the code, the default parameters in performing the simulation would adjust themselves as well. For example, the number of bands in the electronic structure will be changed to be the multiples of the number of the CPUs. This means, it will not be completely fair to compare the performance depending on the number of CPUs. However, we can still roughly see how the performance scale at the size of our crystal structure and simulation scale here. We find about 6-8 CPUs are suitable for running the simulation.
-
-![VaspProfile](figures/vasp_profile.png)
 
 
 
@@ -200,10 +197,8 @@ For the final atom site, what is the atomic type, orbital type, orbital index
 The geometry, what is the displacement vector (relative position) between these two orbitals (the hopping direction/vector)
 The strength for the coupling, the real part and the imaginary part of the hamiltonian.
 Neighboring environment: the primitive vectors for the crystal (a1 and a2) which encodes the compressions and strain information of the parent crystal.
-Further generalizations are also possible to capture other ways to vary the crystal confutation. In other words, other features to identify and specify the configuration and later would be used for potentially machine learning algorithm. This can be done by simply adding processing modules to the postprocess script and derive the necessary information to be retained. They can be added as additional data column.
+Further generalizations are also possible to capture other ways to vary the crystal configuration. In other words, other features to identify and specify the configuration and later would be used for potentially machine learning algorithm. This can be done by simply adding processing modules to the postprocess script and derive the necessary information to be retained. They can be added as additional data column.
 Additional filters can be added to the wrapper to remove the unnecessary information. Though this is not implemented in our code here. For example, to reduce the size of the data set, we can remove the atomic coupling that has a very large hopping distance (we can set a cutoff radius). The physical idea is that, the larger the hopping range is, the smaller the coupling will be and hence can be ignored from the recording the essential atomic coupling information in the database.
 
-The Postprocessing script reads the information from the corresponding POSCAR (crystal structure) and hamiltonian modeling file (*_hr.dat) and the implementation can be found in rec_proc.py. This will go through the all 400 sets of files from the output to process them into more intuitive files (new_proc_wan_*) which contains the atomic couplings. This script can be parallelized by multiprocessing module provided in the standard Python interpreter. As in the plot, we observe the improved performance when we parallelize the data processing. The benchmark is done with a subset (100 sets) of the full data (400 sets) we have. The machine we have has 12 physical cores and we investigate the performance up to 12 cores using pool function in multiprocessing toolkit. As the note, we also test the performance for data stored on the solid state drive and the conventional magnetic hard disk. The solid state drive provides slightly better performance over the conventional magnetic storage device.
 
-![PostProcessing](figures/PP_profile.png)
 
