@@ -79,5 +79,5 @@ The Postprocessing script reads the information from the corresponding POSCAR (c
 
 ![PostProcessing](figures/PP_profile.png)
 
-# [>> Results and Discussion >>](https:stevetorr.github.io/wannier_shift/results)
+# [>> Results and Discussion >>](https://stevetorr.github.io/wannier_shift/results)
 # [<< Guide to using Code <<](https://stevetorr.github.io/wannier_shift/guide)
