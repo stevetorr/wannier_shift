@@ -12,7 +12,7 @@
 
 ## [Results and Discussion](https://stevetorr.github.io/wannier_shift/results)
 
-## [Appendix: Code Descriptions](https://stevetorr.github.io/wannier_shift/code_desc)
+## [Appendix: Code Descriptions (README)](https://stevetorr.github.io/wannier_shift/code_desc)
 
 ## [Link to files and codes (for instructors)](https://drive.google.com/drive/folders/1TPO2H14AS_1CgilDmRqsAZzv_I4oeqrX?usp=sharing)
 
