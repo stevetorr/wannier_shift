@@ -7,25 +7,16 @@
 
 ## Introduction, Background, and Motivation
 
-Density functional theory (DFT) is the workhorse of computational condensed matter and physical chemistry. It allows users to compute a wide variety of material properties, such as electronic and mechanical structure, phonon/vibrational behavior, and geometric phase phenomena. However, DFT does not scale favorably with system size, and performing complicated electron orbital-structure or mechanical relaxation calculations for systems with more than a few dozen atoms becomes intractable. 
+## Physical Background: Motivation for Layered Materials
 
-DFT typically generates wavefunctions that are in the plane-wave basis, so the periodicity across a crystal is easy to exploit. However, the use of an alternate wavefunction basis, Maximally Localized Wannier Functions (MLWF), allow us to visualize the electrons as being localized on individual atoms as well as determine the physical interaction strength, or coupling, between different orbitals. It can be advantageous to study a system from the basis of individual orbitals coupling to one another, as such a mathematical framework turns most calculations of system properties into routine linear algebra calculations.
+Conventional bulk solids are made of three-dimensional crystals with strong chemical bonding in between atomic constituents. Ever since the discovery of graphene \[[Nobel2010](https://www.nobelprize.org/nobel_prizes/physics/laureates/2010/press.html)\], there have been intense reserach investigations on  layered materials. These are materials with strong chemical bonding between the atoms in the same sheet and weaker van der Waals interactions between the neighboring sheets. Because of the nature of the weak interlayer bonding, individual sheets of atoms can be exfoliated via a mechanical method involving scotch tape. Ever since, the library of experimentally accessible 2D materials is constantly growing with new types of layers that can be exfoliated or fabricated. They can host a variety range of physical properties as well. For example, some layers can be magnetic or superconducting. There are great implications for the applications using these layered materials in industry or fundamental research.
 
-Therefore, MLWF’s are useful to bring the toolset of DFT to bear on large systems. For instance, one of our group members demonstrated how parameterizing a tight binding model for Transition Metal Dichalcogenides could come from MLWF’s and DFT. \[[Fang 2015](https://arxiv.org/abs/1506.08860)\]; learning how to model two-dimensional twisted systems is a vigorous and active field of research, spurned on by the recent discovery that twisted bilayer graphene superconductors.
+Because they are sheets of materials, one might be interested in stacking different layers together to form a stack like a sandwich, and hope to engineer the stack with the desired properties by combining them properly. There are many 'control knobs' in forming the stack. For example, what types of layers could be used, and what the stacking twist angle and the geometry could be. Though it is exciting to imagine the possibility to use these layered materials, theoretically it is extremely challenging to simulate the layer stacks and give insights for the experimental parameters to be tested. 
 
-In order to study twisted bilayer TMDC systems, we need to understand the interactions between atoms in a wide variety of spatial configurations; even for modest twist angles, the periodicity which is necessary for DFT calculations is only by very large systems of hundreds of atoms. Therefore, a tight-binding model informed by Wannier functions is one of the precious few techniques we have to approach calculating properties of twisted 2D systems.
+To understand the difficulty, we can first look at the system from a geometric point of view. Moire patterns are the interference pattern created when two similar images are overlapping with each other. It can be observed in daily life such as the photography.
 
-
-### Physical Background: Motivation with Layered Materials
-
-Conventional bulk solids are made of three-dimensional crystals with strong chemical bonding in between atomic constituents. Ever since the discovery of graphene \[[Nobel2010](https://www.nobelprize.org/nobel_prizes/physics/laureates/2010/press.html)\], there are intense reserach investigations on  layered materials. These are the materials with strong chemical bonding between the atoms in the same sheet and weaker van der Waals interactions between the neighboring sheets. Because of the nature of the weak interlayer bonding, individual sheets of atoms can be exfoliated via a mechanical method with scotch tape. Over the years, the members of the 2D materials are constantly growing with new types of layers that can be exfoliated or fabricated. They can host a variety range of physical properties as well. For example, some layers can be magnetic or superconducting. There are great implications for the applications using these layered materials in industry or fundamental research.
-
-Because they are sheets of materials, one might be interested in stacking different layers together to form a stack like a sandwich and hope to engineer the stack with the desired properties by combining them properly. There are many 'control knobs' in forming the stack. For example, what types of layers could be used, and what the stacking twist angle and the geometry could be. Though it is exciting to imagine the possibility to use these layered materials, theoretically it is extremely challenging to simulate the layer stacks and give insights for the experimental parameters to be tested. 
-
-To understand the difficulty, we can first look at the system from a geometric point of view. Moire patterns is the interference pattern created when two similar images are overlapping with each other. It can be observed in daily life such as the photography.
-
-## ![Moire Pattern from Wikipedia](../figures/moire_pattern.png) 
-### This moire pattern photo is taken from the wikipedia page  on [Moire Patterns](https://en.wikipedia.org/wiki/Moir%C3%A9_pattern). It shows two identical planes of lines at a relative twist angle $\alpha$. Note the periodic pattern that emerges in their overlap, which is characterized not just by the planes themselves but by $\alpha$.
+## ![Moire Pattern from Wikipedia](figures/moire_pattern.png) 
+### This Moire pattern photo is taken from the wikipedia page  on [Moire Patterns](https://en.wikipedia.org/wiki/Moir%C3%A9_pattern). It shows two identical planes of lines at a relative twist angle alpha. Note the periodic pattern that emerges in their _overlap_, which is characterized not just by the planes themselves but by alpha.
 
 The overlap between two images would create a long-wavelength varying pattern in the combined image. The scale of this long-wavelength variation is determined by the degree of the mismatch between layers. The smaller the mismatch is, the larger the length scale is for the spatial variations. The similar phenomena would occur for atomic crystals as well and the two-dimentional geometry for the layered materials are perfect to illustrate Moire pattern physics. 
 
@@ -40,6 +31,16 @@ Overcoming this theoretical challenge to simulate the van der Waals heterostruct
 ## From the [Nature views article](https://www.nature.com/articles/d41586-018-02660-4). The moire pattern that graphene produces is clearly visible.
 
 Looking forward to the research with these van der Waals layer stacking, there are many open questions. How could we determine or engineer the proper layer structure and what is the geometry that we should create in order to manipulate the electronic properties to what we desire, how to optimize the combinations, and what should we be expecting for the new physics to emerge. These are extremely challenging and exciting to explore, but the efficient numerical approach and toolset are necessary to perform these simulations. One strong benefit of creating the database and having very efficient ways of querying the data entries for the related crystal types and geometry is extremely valuable to advance the theoretical approach. With the growing number of two-dimentional layered materials and various forms, our database can also be extended to many types and symmetries. One can proceed with the truly ab-initio simulations of these layer stacks, or derive the corresponding low-energy expansions and various handy models to describe them.
+
+Density functional theory (DFT) is the workhorse of computational condensed matter physics and physical chemistry. It allows users to compute a wide variety of material properties, such as electronic and mechanical structure, phonon/vibrational behavior, and geometric phase phenomena. However, DFT does not scale favorably with system size, and performing complicated electron orbital-structure or mechanical relaxation calculations for systems with more than a few dozen atoms becomes intractable. 
+
+DFT typically generates wavefunctions that are in the plane-wave basis, so the periodicity across a crystal is easy to exploit. However, the use of an alternate wavefunction basis, Maximally Localized Wannier Functions (MLWF), allow us to visualize the electrons as being localized on individual atoms as well as determine the physical interaction strength, or coupling, between different orbitals. It can be advantageous to study a system from the basis of individual orbitals coupling to one another, as such a mathematical framework turns most calculations of system properties into comparatively fast routine linear algebra calculations.
+
+Therefore, MLWF’s are useful to bring the toolset of DFT to bear on large systems. For instance, one of our group members demonstrated how parameterizing a tight binding model for Transition Metal Dichalcogenides could come from MLWF’s and DFT. \[[Fang 2015](https://arxiv.org/abs/1506.08860)\]; learning how to model two-dimensional twisted systems is a vigorous and active field of research, spurned on by the recent discovery of twisted bilayer graphene superconductors.
+
+In order to study twisted bilayer TMDC systems, we need to understand the interactions between atoms in a wide variety of spatial configurations; even for modest twist angles, the periodicity which is necessary for DFT calculations is only accessible by very large systems of hundreds of atoms. Therefore, a tight-binding model informed by Wannier functions is one of the precious few techniques we have to approach calculating properties of twisted 2D systems.
+
+
 
 ## [Project Overview and Methods](https://stevetorr.github.io/wannier_shift/plan)
 
@@ -485,9 +486,6 @@ Markdown is a lightweight and easy-to-use syntax for styling your writing. It in
 ```markdown
 Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
 
 - Bulleted
 - List
