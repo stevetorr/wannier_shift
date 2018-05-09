@@ -135,9 +135,10 @@ Possible ways to improve the interpolation we judged were providing some sort of
 
 ### Code
 
-In the course of developing an efficient look-up tool, we generated the following codes. 
+In the course of developing an efficient look-up tool, we generated the following codes, which can be downloaded from:
+https://drive.google.com/drive/folders/1TPO2H14AS_1CgilDmRqsAZzv_I4oeqrX?usp=sharing
 
-- serial_query_profile.py add link?
+- serial_query_profile.py 
 - spark_query.py
 - generate_model.py
 
@@ -165,7 +166,7 @@ Generate_model.py generates the Tight Binding Hamiltonian model, querying the al
 
 ### Guide to Running on AWS
 
-In order to compare different implementations and make our results reproducible, we ran all of the above codes on AWS. The following are the guides to rerun our experiments using 400 files for serial_query_profile.py and 40 files for the others. Modifications of the codes are not necessary unless you would like to try with other number of files. We used 200 files to produce some of our results, so we have included comments for curious readers.
+In order to compare different implementations and make our results reproducible, we ran all of the above codes on AWS. The following are the guides to re-run our experiments using 400 files for serial_query_profile.py and 40 files for the others. Modifications of the codes are not necessary unless you would like to try with other number of files. We used 200 files to produce some of our results, so we have included comments for curious readers.
 
 #### Serial Loading
 
@@ -382,6 +383,8 @@ Now we executed the code with 200 files and the execution time and speedup are s
 
 <img src="../figures/Files_comparison.png" width="600">
 <img src="../figures/40vs200.png" width="800">
+
+<img src="../figures/40vs200_2.png" width="400">
 
 #### Query + TBH Model Building
 
