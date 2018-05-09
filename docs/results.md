@@ -45,5 +45,6 @@ The generalization includes variations of the crystal geometry and configuration
 
 The database itself is also very useful to be used to visualize the atomic coupling depending on each orbital type, or used to derive simpler effective low-energy models for theoretical physics research. The simulation would then guide the fabrication of the devices and make the prediction of their physical properties. On the other hand, because of the layer geometry, the layer materials can also be probed by various experimental methods such as scanning tunneling microscope or optical measurements. These probing techniques directly access the electronic properties and can be used to validate the predications we have for the layer stacks. This would give feedback for the theoretical modeling and further improve the quality for the simulation method. Our method is designed to retain the information from first principle calculations (DFT) and can be improved systematically without any unjustified ad hoc ansatz or assumptions for the atomic coupling. A database that manage the set of atomic coupling data is highly relevant for the field of studies on these two-dimensional layered materials and their simulations. 
 
-# [ ^^ Back to Header ^^ ](https://stevetorr.github.io/wannier_shift/header)
 # [<< Profiling Information <<](https://stevetorr.github.io/wannier_shift/profile)
+# [ ^^ Back to Header ^^ ](https://stevetorr.github.io/wannier_shift/header)
+
