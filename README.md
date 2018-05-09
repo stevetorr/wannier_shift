@@ -2,6 +2,31 @@
 Interpolating Wannier functions for TMDC Heterostructure Tight-Binding Hamiltonians
 
 
+# Description of Files in Top Folder
+
+## serial_query_profile.py
+
+Serial_query_profile.py is a standard Python code generated to obtain the serial execution time of a single query along with a parallel execution time with a worker Pool. It reads all files into local memory, goes through every line of each file, and uses a list comprehension to parse the lines to find the desired k and l orbitals. It returns the lines as a list of floating point values (Dx,Dy,Dz,Coupling), and the time it takes from loading files to returning these values is collected and printed for each file.
+
+When this code is executed, four tasks are completed – two serial and two parallel loadings, for all 400 files and for every N (“thoroughness”) files. The default N is 10, and the default number of workers is 12.
+
+## spark_query.py
+
+Spark_query.py compares three spark-based implementations. All of them start by reading 400 data files into one dataframe, and return the floating point values as a numpy array. In the first implementation, the dataframe is transformed by dataframe.filter( ). Another implementation creates a temporary view of the dataframe and runs SQL directly on it. The last implementation partitions and writes the data in the format of parquet. The data are stored in new directories, with partitioning column values encoded in the path of each partition directory. When querying by orbital indices k and l, the data in the corresponding partition directory will be queried directly. Running this code gives the execution time of each implementation in an easily comparable format.
+
+## generate_model.py
+
+Generate_model.py generates the Tight Binding Hamiltonian model, querying the already-generated parquet multiple times. It first constructs atom positions for the 2D material being studied, and computes displacements to perform interpolation and obtain corresponding electronic couplings. The TBH model is built from these couplings and printed in the output. In order to run this code, spark_query.py has to be first executed to create a parquet directory using the desired number of data files. The number of data files to be read can be specified by modifing the following part of spark_query.py.
+```
+# Set how many files needed to be read
+files=[]
+prefix='new_proc_wan_'
+for i in range(400):
+#if i % 2 == 0: Uncomment to run on every other file (200 files)
+if i % 10 == 0: # this is for 40 files
+files.append(prefix+str(i))
+````
+
 # Description of Folders
 
 ## docs
@@ -13,10 +38,13 @@ Contains all of the figures which we generated for the website.
 ## project_presentations
 Contains our final presentation, the original proposal, and one of our intermediate presentation slides (for archival purposes).
 
-##
+## example_run
 
+### TBH.2x2
+A pickled numpy 88x88 matrix which was generated from the model builder. This figure is featured in the results section.
 
-
+### TBH_analyze.ipynb
+An ipython notebook which generates the figures from TBH.2x2, and **OPTIONALLY** TBH.20x20, which is obtainable from the google drive on request. TBH.20x20 was not included in the repository because it's 700 MB.
 
 
 ## DFT-WAN
