@@ -388,7 +388,7 @@ Now we executed the code with 200 files and the execution time and speedup are s
 
 #### Query + TBH Model Building
 
-Having developed the query code, we combined it with the interpolation code that builds the TBH models, and we created generate_model.py. This code first creates a parquet, reads the parquet and creates a temporary view, and queries it about 300 times to populate the TBH matrix The execution time and speedup were compared for different number of cores using 40 files. We also tested how partitioning when creating the parquet affects the total time. 
+Having developed the query code, we combined it with the interpolation code that builds the TBH models, in generate_model.py. This code first creates a parquet, reads the parquet and creates a temporary view, and queries it about 300 times to populate the TBH matrix The execution time and speedup were compared for different number of cores using 40 files. We also tested how partitioning when creating the parquet affects the total time. 
 
 <img src="../figures/Partition_comparison.png">
 
