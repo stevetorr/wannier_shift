@@ -1,0 +1,10 @@
+SYSTEM = TMDC-mono
+ISMEAR = 0            # Blochl=-5, MP=1
+NBANDS = 32
+ICHARG = 11
+SIGMA = 0.15
+ENCUT = 350
+LMAXMIX = 4
+EDIFF = 1E-6
+ISYM = 0
+LWANNIER90 = .TRUE.
