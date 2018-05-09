@@ -1,6 +1,8 @@
 
 # Overview and Methods
 
+**On this page, we review what we are attempting to do and explain our toolkit for generating the data sets (DFT and Wannier90). We explain our data management later.**
+
 ## Overview
 Our chief concerns are as follows. It is very time-expensive to generate data sets for different bilayer material configurations. The DFT + Wannierization software is already optimized for parallel execution over cores, and is best regarded as a black box; therefore, embarrassingly parallel execution of the code via a wrapper code for a wide variety of configurations is how we aim to optimize this step. For the management and utilization of the resulting dataset, we turn to Spark and examine other database models to rapidly query the database for different orbital-orbital coupling strengths. The advantage of this parallelization is that it allows for faster querying of the computed values for accurate tight-binding Hamiltonian parameterization.
 
@@ -47,3 +49,7 @@ Memory: 64 GB 1333 MHz DDR3 ECC SDRAM
 Fixed IP address on campus: 10.243.34.140
 Graphics: 2 x AMD ATI Radeon HD 5770 (1024MB VRAM)
 ```
+
+# [>> Analysis >>](https://stevetorr.github.io/wannier_shift/analysis)
+# [<< Intro, Background, Motivation<<](https://stevetorr.github.io/wannier_shift/background)
+
