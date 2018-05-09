@@ -20,13 +20,17 @@ The same experiment was done with m4.4xlarge instances, which have 16 vCPUs each
 
 <img src="../figures/m4.4xlarge1.png" width="800">
 
-#### Dataframe Filtering and Spark.sql
+#### Parquet + Spark.sql
 
 In order to improve the execution time, we turned to the [parquet format](https://spark.apache.org/docs/latest/sql-programming-guide.html#parquet-files). A single script first created a parquet file with data partitioned according to orbital indices (atom_from_index and tom_to_index), read and registered the partitioned table as a temporary view, and ran spark.sqp on it. The following is the execution time of each operation, for again, 11-11 coupling. With 12 cores, parquet creation took 15.6 s, reading it took 0.528 s, and running spark.sql took 0.431 s. 
 
 <img src="../figures/m4.4xlarge2.png">
 <img src="../figures/m4.4xlarge_table.png">
 
-The parquet file needs to be generated only once for any number of queries done on the parquet. Therefore the average query time using 16 cores was calculated for different number of queries and the result is shown below. 
+The parquet file needs to be generated only once for any number of queries done on the parquet. Therefore the average query time using 16 cores was calculated for different number of queries and the result is shown below. If query was to be done 10 times, the parquet method will be as fast as running spark.sql directly on the dataframe. Because we will conduct a few hundred queries in the actual implementation, the parquet method is the way to go. For 100 queries, the average time per query is 0.537 s and 0.417 s for 1000 queries. 
 
 <img src="../figures/Superior_parquet.png" width="500">
+
+#### Experiment with 200 files
+
+
