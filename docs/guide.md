@@ -216,5 +216,6 @@ Additional filters can be added to the wrapper to remove the unnecessary informa
 
 # [>> Profiling the Code >>](https://stevetorr.github.io/wannier_shift/profile)
 # [<< Methods <<](https://stevetorr.github.io/wannier_shift/overview)
+# [ ^^ Back to Header ^^ ](https://stevetorr.github.io/wannier_shift/header)
 
 
