@@ -1,0 +1,75 @@
+\documentclass[12pt, oneside]{article}  
+
+%\documentclass[11pt, twocolumn,left=1cm,right=1cm]{article} % Default font size is 12pt, it can be changed here
+%Saved into templates Feb 22th 2017. Served me well through college!
+\usepackage{amsmath, amssymb, mathtools, physics, amsthm, braket, tensor}
+\usepackage[xetex]{graphicx}
+\usepackage{fontspec,xunicode}
+\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+%\setmainfont[Scale=1.0]{Times}
+\setmonofont{Times}
+\usepackage{lipsum, dsfont, fancyhdr, graphicx}
+
+\usepackage[margin=1in]{geometry}
+%\geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
+
+\setlength{\headheight}{15pt} 
+
+\linespread{1} % Line spacing
+
+\renewcommand{\thispagestyle}[1]{} % This does nothing, just defines what the page style is.
+
+\usepackage[labelformat=empty]{caption}
+
+\newcommand{\fig}[2]{ 
+\begin{figure}[bth] 
+\centering
+\includegraphics[width = 10cm]{#1} 
+\caption {#2} 
+\end{figure}}
+
+\newcommand{\eqn}[1]{\begin{equation}#1 \end{equation}}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+\renewcommand{\dag}[1]{#1^{\dagger}}
+\newcommand{\dagg}[1]{#1^{\dagger 2}}
+\newcommand{\daggg}[1]{#1^{\dagger 3}}
+\newcommand{\infint}{\int_{-\infty}^{\infty}}
+\newcommand{\algn}[1]{\begin{align}#1 \end{align}}
+\newcommand{\e}{\epsilon}
+\newcommand*{\QED}{\hfill\ensuremath{\square}}
+\usepackage{tensor}
+
+\numberwithin{equation}{section}
+
+
+\begin{document}
+
+
+\pagestyle{fancy} % Calling the package
+\lhead{\textit{Steven B. Torrisi}} % Left side of header
+%\rhead{\textit{Set 1}} % Right side of header % Left side of header
+\title{ Course Title }
+\date{Due Date}
+\author{Steven B. Torrisi} 
+
+\maketitle
+
+\section{Problem}
+
+\subsection{Part A}
+
+$$h_{A_{t} O_{t}}^{A_{f} O_{f}} \rightarrow A_f=\text{Atom From} \  A_t=\text{Atom to} $$ 
+$$O_f=\text{Orbital From} \ O_t = \text{Orbital To}$$
+
+
+$$ H = \mqty( 
+h_{1,1}^{1,1}      & h^{1,1}_{1,2} &h^{1,1}_{1,3} & \dots & h^{1,1}_{2,1} & h^{1,1}_{2,2} & \dotsi  \\
+h_{1,1}^{1,2}      & h^{1,2}_{1,2} &h^{1,2}_{1,3} & \dotsi &h^{1,2}_{2,1} & h^{1,2}_{2,2}  & \dotsi  \\
+\vdots                 & \vdots            & \vdots           & \ddots & \vdots          & \vdots           &         \\
+h^{1,11}_{1,1}     & h^{1,11}_{1,2}& \dotsi           &	      & \ddots         &		          &      	\\
+h^{2,1}_{1,1}      & h^{2,1}_{1,2} & \dotsi             &         &                      & \ddots           &          \\
+\vdots                  & \vdots            & \vdots             &        &                     &                      &    ) 
+$$
+
+\end{document}
+
