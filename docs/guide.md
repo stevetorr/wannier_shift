@@ -1,7 +1,7 @@
 
 # Guide to Using Code 
 
-**On this page, we provide a helpful overview to the course instructors explaining how to use the code we have provided in the Github Repository. Note that while we detail how to use VASP, as it is commercial software, we do not include a copy. Thus, we foucs on the code that can be run readily first, and provide details on the VASP calculation afterwards.
+**On this page, we provide a helpful overview to the course instructors explaining how to use the code we have provided in the Github Repository. Note that while we detail how to use VASP, as it is commercial software, we do not include a copy. Thus, we foucs on the code that can be run readily first, and provide details on the VASP calculation afterwards.**
 
 # Code
 
