@@ -22,8 +22,10 @@
 
 \[1\] Fang 2015, PRB, [link](http://www.google.com/url?q=http%3A%2F%2Fjournals.aps.org%2Fprb%2Fabstract%2F10.1103%2FPhysRevB.92.205108&sa=D&sntz=1&usg=AFQjCNEPWOnbGlS1q9C2e6Y8fl36wxQzaA) [Arxiv](https://arxiv.org/abs/1506.08860)
 
-\[2\] Vienna Ab Initio Simulation Package, https://www.vasp.at/
+\[2\] [Nobel Prize 2010](https://www.nobelprize.org/nobel_prizes/physics/laureates/2010/)
 
-\[3\] "An updated version of wannier90: A tool for obtaining maximally-localised Wannier functions", [link](https://www.sciencedirect.com/science/article/pii/S001046551400157X?via%3Dihub)
+\[3\] Vienna Ab Initio Simulation Package, https://www.vasp.at/
+
+\[4\] "An updated version of wannier90: A tool for obtaining maximally-localised Wannier functions", [link](https://www.sciencedirect.com/science/article/pii/S001046551400157X?via%3Dihub)
 
 
