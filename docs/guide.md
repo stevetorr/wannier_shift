@@ -171,14 +171,20 @@ To install these codes, the instructions can be found from the corresponding web
 The example setup folder to execute the computation is in the GitHub. First, the setups for running VASP DFT code can be seen in KSCAN subfolder. Within this folder:
 
 -The **SCF** folder is the first stage of the calculation for VASP DFT which completes the self-consistent calculations for the electron charge and other physical quantities. The charge information can then be passed to the next stage of the calculations.
+
 -The **BANDS** folder runs the non self-consistent calculations to derive the band structure corresponding to the crystal structure. This is to be used to validate the quality of Wannier interpolation for the band structure in the next stage.
+
 -The **WAN** folder is the final stage to derive the Bloch wave functions and perform the Wannier transformation to obtain the localized Wannier basis function as atomic orbitals. The VASP code is executed first to derive the necessary projections for obtaining Wannier orbitals and then Wannier90 code continues with these projections to derive the localized orbitals and the tight-binding model.
 
 Brief descriptions for the input files:
 -**INCAR**: which contains the input parameters for running the VASP DFT code such as the energy cutoff, flags to steer the calculations
+
 -**KPOINTS**: the mesh grid or sampling of k points in the reciprocal space
+
 -**POTCAR**: the pseudo potential files for each atomic species to be used in DFT simulations.
+
 -**POSCAR**: contains the descriptions for the crystal structure including the primitive vectors for the real space and the basis positions for the constituent atoms.
+
 -**wannier90.win**: setup file for executing Wannier90 code to derive Wannier orbitals and the modeling for the band structure. For example, this file specifies the energy window to derive the model, what types of atoms / orbitals should be included, etc.
 
 As we see in the introduction, we are going to sample various configurations for the crystal structure. To prepare the files appropriate (POSCAR and wannier90.win files) for each calculation, the script gen_pos.py performs the task and generates 400 different configurations for the stacked TaS2 bilayer crystal. All the files generated will be stored in the allpos subfolder.
@@ -195,9 +201,13 @@ One very interesting aspect of our project is, we have to prepare our own data s
 After the discussion, we design the post process script that wraps the detailed physics background into the concise postprocessed files. These files from the wrapper contains only the essential information for the orbital coupling. These can be represented by each data entry which contains the following information for the coupling and features:
 
 -For the initial atom site, what is the atomic type, orbital type, orbital index
+
 -For the final atom site, what is the atomic type, orbital type, orbital index
+
 -The geometry, what is the displacement vector (relative position) between these two orbitals (the hopping direction/vector)
+
 -The strength for the coupling, the real part and the imaginary part of the hamiltonian.
+
 -Neighboring environment: the primitive vectors for the crystal (a1 and a2) which encodes the compressions and strain information of the parent crystal.
 
 Further generalizations are also possible to capture other ways to vary the crystal configuration. In other words, other features to identify and specify the configuration and later would be used for potentially machine learning algorithm. This can be done by simply adding processing modules to the postprocess script and derive the necessary information to be retained. They can be added as additional data column.
