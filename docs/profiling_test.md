@@ -7,6 +7,6 @@ The following is the result of executing serial_query_profile.py on AWS. It coll
 
 ### Loading using Spark Cluster with m4.2xlarge
 
-spark_query.py was ran on a Spark cluster with one Master and two Worker m4.2xlarge instances. m4.2xlarge was chosen as it has 8 vCPUs and using two of it allowed us to experiment with 12 cores, which is what the workstation has. The query above (collecting information for orbital 11 - orbital 11 coupling) was also tested here. 
+Spark_query.py was run on a Spark cluster with one Master and two Worker m4.2xlarge instances. m4.2xlarge was chosen as it has 8 vCPUs and using two of it allowed us to experiment with 12 cores, which is what the workstation has. The query above (collecting information for orbital 11 - orbital 11 coupling) for 40 files was also tested here. The next figure shows the execution time and speedup as a function of the number of cores. With 12 cores, the execution time of 4 s for dataframe.filter() and that of 3 s were obtained. However, the execution time increased for larger number of cores, most likely because the actual number of cores in the instance is smaller due to hyperthreading. 
 
 <img src="../figures/m4.2xlarge.png" width="800">
