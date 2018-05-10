@@ -28,7 +28,7 @@ The execution time decreased as expected, and the query took 3.35 s with datafra
 
 #### Parquet + Spark.sql
 
-In order to improve the execution time, we turned to the [parquet format](https://spark.apache.org/docs/latest/sql-programming-guide.html#parquet-files). A single script first created a parquet file with data partitioned according to orbital indices (atom_from_index and tom_to_index), read and registered the partitioned table as a temporary view, and ran spark.sqp on it. The following is the execution time of each operation, for again, 11-11 coupling. 
+In order to improve the execution time, we turned to the [parquet format](https://spark.apache.org/docs/latest/sql-programming-guide.html#parquet-files). A single script first created a parquet file with data partitioned according to orbital indices (atom_from_index and atom_to_index), read and registered the partitioned table as a temporary view, and ran spark.sql on it. The following is the execution time of each operation, for again, 11-11 coupling. 
 
 <img src="figures/m4.4xlarge2.png">
 <img src="figures/m4.4xlarge_table.png">
