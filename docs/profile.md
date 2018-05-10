@@ -40,6 +40,8 @@ Now we executed the code with 200 files and the execution time and speedup are s
 <img src="figures/Files_comparison.png" width="600">
 <img src="figures/40vs200.png" width="800">
 
+Although the time it takes to create parquet increases with increasing number of files, reading time does not increase. As a result, the average execution time of a single query taking into account both the parquet creation and parquet reading times has become less than 1.5 s for 200 files. The speedup of reading parquet by using 16 cores is approximately 1, and this is one of the tasks we still have to work on. 
+
 #### Query + TBH Model Building
 
 Having developed the query code, we combined it with the interpolation code that builds the TBH models, in generate_model.py. This code first creates a parquet, reads the parquet and creates a temporary view, and queries it about 300 times to populate the TBH matrix. The execution time and speedup were compared for different number of cores using 40 files. We also tested how partitioning when creating the parquet affects the total time. 
